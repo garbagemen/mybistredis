@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+    eviction:回收策略
+    lru:移除最少使用的
+    fifo先进先出
+    soft软引用，移除基于垃圾回收器状态和软引用规则的对象
+    WEAK弱引用，更积极的移除基于垃圾回收器状态和弱引用规则的对象
+    flushinterval:刷新间隔，以毫秒为单位，100000表示每100秒刷新一次缓存，不设置的话，则每次调用语句是刷新
+
+readOnly: 只读属性可以被设置为true后者false。只读的缓存会给所有调用者返回缓存对象的相同实例，因此这些对象不能被修改，这提供了很重要的性能优势。可读写的缓存会通过序列化返回缓存对象的拷贝，这种方式会慢一些，但很安全，因此默认为false。
+
+size: 可以被设置为任意的正整数，要记住缓存的对象数目和运行环境的可用内存资源数目，默认1024。
+-->
+<mapper namespace="">
+    <select id="selectAllConfig" resultMap="dataSourceConfig" useCache="true">
+        select id,managecom,dataSourceName,managename from dataSourceConfig
+    </select>
+    <!-- 开启二级缓存 -->
+    <cache eviction="LRU" flushInterval="100000" readOnly="true" size="1024">
+    </cache>
+</mapper>
